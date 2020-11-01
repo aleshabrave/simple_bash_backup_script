@@ -116,6 +116,7 @@ n=$RANDOM
 # if [ -f "$outdir"*backup$(($i%$quantity+1)).zip ]; then rm -r "$outdir"*backup$(($i%$quantity+1)).zip; fi
 filename="$outdir"backup$n.zip
 if [ -f "$filename" ]; then n=$((RANDOM*i*i*i+RANDOM)); fi
+filename="$outdir"backup$n.zip
 zip -r "$filename" $(find . -name \*$exp) > /dev/null
 echo "Archive was created"
 if [ $flag = false ]; then exit; else sleep "$period"; fi
