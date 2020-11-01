@@ -86,7 +86,7 @@ if [ -n "$5" ]
 then
 period=$5
 else
-echo you need to specify the period\(use -help or -h\); exit; fi
+echo you need to specify the period \(use -help or -h\); exit; fi
 if [ -n "$6" ]
 then
 quantity=$6
@@ -105,19 +105,15 @@ do
 # $(date +"%T:%d:%m:%y")
 cd "$outdir" || exit
 x=1
-for j in $(ls -t backup*.zip)
+for j in $(ls -t backup*)
 do
 if (( x < quantity )); then ((x++)); continue; fi
 rm "$j"
 done
 cd "$indir" || exit
 n=$RANDOM
-# filename="$outdir"backup$(($i%$quantity+1)).zip
-# if [ -f "$outdir"*backup$(($i%$quantity+1)).zip ]; then rm -r "$outdir"*backup$(($i%$quantity+1)).zip; fi
-filename="$outdir"backup$n.zip
-if [ -f "$filename" ]; then n=$((RANDOM*i*i*i+RANDOM)); fi
-filename="$outdir"backup$n.zip
-zip -r "$filename" $(find . -name \*$exp) > /dev/null
+if [ -f ""$outdir"backup$n.zip" ]; then n=$((RANDOM*i*i*i+RANDOM)); fi
+zip -r ""$outdir"backup$n.zip" $(find . -name \*$exp) > /dev/null
 echo "Archive was created"
 if [ $flag = false ]; then exit; else sleep "$period"; fi
 done
