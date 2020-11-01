@@ -86,7 +86,7 @@ if [ -n "$5" ]
 then
 period=$5
 else
-echo you need to specify the max period of zips \(use -help or -h\); exit; fi
+echo you need to specify the period\(use -help or -h\); exit; fi
 if [ -n "$6" ]
 then
 quantity=$6
@@ -105,7 +105,7 @@ do
 # $(date +"%T:%d:%m:%y")
 cd "$outdir" || exit
 x=1
-for j in $(ls -t backup*)
+for j in $(ls -t backup*.zip)
 do
 if (( x < quantity )); then ((x++)); continue; fi
 rm "$j"
