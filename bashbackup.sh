@@ -9,13 +9,11 @@ echo "Usage: .../backup.sh [OPTION] ... bash backup...
 	Additional options: script can work with certain period, you can specify
 	a limit on the number of backups(the default limit is 54) and you can also check the integrity of the
 	reserve amount.
-
 	Mandatory arguments [1]:
 	-o,                make one backup, you must to specify three arguments:
 	-one 			1) path to directory where you want to get files for backup [2];
 				2) needed extention of files [3];
 				3) path to directory where you want to save your ZIP archive [4].
-
 	-oq,  		   leaves the maximum-1 number of archives and adds a new one, if the 
 	-one-quantity	   limit has excedeed, and if not, then simply add a new one, like -o
 			   but you must to add one more argument — a limit on the number of 
@@ -23,7 +21,6 @@ echo "Usage: .../backup.sh [OPTION] ... bash backup...
 	
 	-a,		   like -o but you must to add(specify period) one more argument —
 	-auto			a period of backups [5].
-
 	-aq,		   like -o + -oq + -a, so you must to scpecify six arguments:
 	-auto-quantity		1) path to folder where you want to get files for backup [2];
 				2) needed extention of files [3];
@@ -36,7 +33,6 @@ echo "Usage: .../backup.sh [OPTION] ... bash backup...
 				1) full path to your ZIP archive [2];
 				2) needed extention of files [3];
 				3) path to directory where your files to backup are located [4].
-
 	*[?] - argument number"
 exit 0
 fi
@@ -105,7 +101,7 @@ do
 # $(date +"%T:%d:%m:%y")
 cd "$outdir" || exit
 x=1
-for j in $(ls -t backup*)
+for j in $(ls -t backup*zip)
 do
 if (( x < quantity )); then ((x++)); continue; fi
 rm "$j"
