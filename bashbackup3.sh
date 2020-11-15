@@ -31,7 +31,6 @@ if [[ $1 == "--help" ]];then
 	
 	Options:
 	
-	-h                  user's manual;
 	-c                  use to check the archive data integrity, you must specify 
 						three arguments:
 							1) the path to the directory with the source files;
@@ -86,13 +85,21 @@ while getopts "l:p:c" opt;do
 			echo "Specify the full path to the archive" >&2
 			exit 1 
 		fi
+		if (( $# > 3 ));then
+			echo "Too much arguments" >&2
+			exit 1
+		fi
 		indir=$1
 		ext=$2
 		outdir=$3
 		if [ -r $indir/forsum ];then 
 			rm -r $indir/forsum
 		fi
-		mkdir $indir/forsum
+		mkdir $indir/forsum 2>/dev/null
+		if (( $? != 0 ));then
+			echo "Paths are wrong(maybe one of)" >&2
+			exit 1
+		fi
 		unzip $outdir -d $indir/forsum >/dev/null
 		if (( $? != 0 )); then
 			echo "Not such archive" >&2
@@ -159,7 +166,7 @@ do
 	if [ -f "${outdir}backup$n.zip" ];then
 		n=$((RANDOM*i*i*i+RANDOM))
 	fi
-	zip "${outdir}/backup$n.zip" $(find $indir/ -name \*$ext 2>/dev/null) >/dev/null
+	zip "${outdir}/backup$n.zip" $(ls $indir/*$ext 2>/dev/null) >/dev/null
 	if (( $? == 0 ));then 
 		echo -e "\e[42mThe archive was created successfully\e[0m" 
 	else 
